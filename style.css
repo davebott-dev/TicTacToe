@@ -1,0 +1,118 @@
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding:0;
+  }
+    
+  
+  #gameContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3,100px);
+    box-sizing: border-box;
+    margin-top: 15px;
+    width: fit-content;
+    }
+  
+  #one,
+  #two,
+  #four,
+  #five {
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    }
+  
+  #three,
+  #six {
+    border-bottom: 2px solid black;
+    }
+  
+  #seven,
+  #eight {
+    border-right: 2px solid black;
+    }
+  
+  .cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  .pageContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 110px;
+    justify-content: center;
+    align-items: center;
+    
+    }
+  
+   .myButton {
+     margin-top: 50px;
+   }
+  
+  #form {
+    background: rgb(238, 213, 206,0.8);
+    position: absolute;
+    top: 130px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px -5px;
+  
+  }
+  
+  fieldset {
+    border: none;
+  }
+  
+  .player1 {
+    margin-top: 25px;
+  }
+  
+  .inputs {
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+  }
+  
+  .radioInputs1,
+  .radioInputs2 {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .nameInput {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input[type="text"] {
+    margin-top: 10px;
+  }
+  
+  .submitBtn {
+    margin-top: 25px;
+    margin-left: 70px;
+    
+  }
+  
+  #container {
+    font-weight:bolder;
+    position: absolute;
+    top: 200px;
+    
+  }
+  
+  .disable {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3,100px);
+    box-sizing: border-box;
+    pointer-events: none;
+    background-color: lightgrey;
+    width: fit-content;
+    }
+  
