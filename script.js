@@ -1,193 +1,663 @@
-const btn = document.querySelector(".myButton");
-const form = document.querySelector("form");
-const submitBtn = document.querySelector(".submitBtn");
-const player1Name = document.getElementById("player1Name");
-const player2Name = document.getElementById("player2Name");
-const cells = document.getElementsByClassName("cell");
-let arr = [];
-const gameCells = document.querySelectorAll(".cell");
-const one = document.getElementById("one");
-const two = document.getElementById("two");
-const three = document.getElementById("three");
-const four = document.getElementById("four");
-const five = document.getElementById("five");
-const six = document.getElementById("six");
-const seven = document.getElementById("seven");
-const eight = document.getElementById("eight");
-const nine = document.getElementById("nine");
-const grid = document.getElementById("gameContainer");
-const warning = document.getElementById("warning");
-const gameWarning = document.createTextNode(`To play, click new game and input names`);
+const multiPlayer = document.getElementById("multiPlayer");
+const singlePlayer = document.getElementById("singlePlayer");
 
-if (player1Name.value === "" && player2Name.value === "" ||
-   player1Name.value === "" || player2Name.value ==="") {
-  grid.classList.add("disable");
+const gameBtns = document.querySelector(".gameBtns");
+const header = document.getElementById("header");
 
+multiPlayer.addEventListener("click", () => {
+  let arr = [];
+  let drawArr = [];
 
-  warning.style.color = "red"
+  document.body.removeChild(gameBtns);
+  const pageCont = document.createElement("div");
+  pageCont.classList.add("pageContainer");
+  const gameScore = document.createElement("div");
+  gameScore.id = "gameScore";
+  const xScore = document.createElement("div");
+  xScore.classList.add("score");
+  const xName = document.createElement("div");
+  xName.textContent = "X's:";
+  const xNum = document.createElement("div");
+  xNum.id = "xScore";
+  const oScore = document.createElement("div");
+  oScore.classList.add("score");
+  const oName = document.createElement("div");
+  oName.textContent = "O's:";
+  const oNum = document.createElement("div");
+  oNum.id = "oScore";
 
+  xNum.textContent = "0";
+  let currentXScore = Number(xNum.innerText);
+  oNum.textContent = "0";
+  let currentOScore = Number(oNum.innerText);
 
-  warning.appendChild(gameWarning);
-  
-}
+  const gameCont = document.createElement("div");
+  gameCont.id = "gameContainer";
 
+  const restartBtn = document.createElement("button");
+  const backBtn = document.createElement("button");
+  const multiPlayerGameBtns = document.createElement("div");
+  multiPlayerGameBtns.classList.add("multiPlayerGameBtns");
 
-submitBtn.addEventListener("click", () => {
+  xScore.appendChild(xName);
+  xScore.appendChild(xNum);
+  oScore.appendChild(oName);
+  oScore.appendChild(oNum);
+  gameScore.appendChild(xScore);
+  gameScore.appendChild(oScore);
 
-  console.log(player1Name.value);
-  console.log(player2Name.value);
+  pageCont.appendChild(gameScore);
 
+  let count = 0;
 
-  document.getElementById("form").style.display = "none";
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      count += 1;
+      const gameCells = document.createElement("div");
+      gameCells.classList.add("cell");
+      gameCells.id = "num" + count;
 
-  if (player1Name.value !== "" && player2Name.value !== "") {
-    grid.classList.remove("disable");
-    warning.removeChild(gameWarning);
-  } else {
-    grid.classList.add("disable");
-    warning.appendChild(gameWarning);
+      gameCont.appendChild(gameCells);
+    }
   }
-  
-})
+  pageCont.appendChild(gameCont);
 
+  restartBtn.id = "myBtn";
+  restartBtn.textContent = "Restart Game";
+  backBtn.id = "backBtn";
+  backBtn.textContent = "Back";
+  multiPlayerGameBtns.appendChild(backBtn);
+  multiPlayerGameBtns.appendChild(restartBtn);
 
-gameCells.forEach((element) => {
-  element.addEventListener("mouseover", () => {
-    element.style.backgroundColor = "lightyellow";
-  })
-  
-});
+  pageCont.appendChild(multiPlayerGameBtns);
 
-gameCells.forEach((element) => {
-  element.addEventListener("mouseout", () => {
-    element.style.backgroundColor = "";
-  })
+  document.body.appendChild(pageCont);
 
-});
+  backBtn.addEventListener("click", () => {
+    document.body.removeChild(pageCont);
 
+    document.body.appendChild(gameBtns);
+    const cells = document.querySelectorAll(".cell");
 
-
-function playGame() {
-
-  gameCells.forEach((element) => {
-
-    element.addEventListener("click", () => {
-      arr.push(element);
-      console.log(arr);
-      console.log(arr.length);
-
-    
-
-      if (arr.length == 1 || arr.length == 3 || arr.length == 5 || arr.length == 7 || arr.length == 9) {
-        element.innerHTML = "X";
-        console.log("x");
-        if (one.innerHTML === "X" && two.innerHTML === "X" && three.innerHTML === "X" ||
-          four.innerHTML === "X" && five.innerHTML === "X" && six.innerHTML === "X" ||
-          seven.innerHTML === "X" && eight.innerHTML === "X" && nine.innerHTML === "X" ||
-          one.innerHTML === "X" && four.innerHTML === "X" && seven.innerHTML === "X" ||
-          two.innerHTML === "X" && five.innerHTML === "X" && eight.innerHTML === "X" ||
-          three.innerHTML === "X" && six.innerHTML === "X" && nine.innerHTML === "X" ||
-          one.innerHTML === "X" && five.innerHTML === "X" && nine.innerHTML === "X" ||
-          three.innerHTML === "X" && five.innerHTML === "X" && seven.innerHTML === "X") {
-          console.log("player 1 wins");
-          alertWinner1();
-
-
-        }
-      } else {
-        element.innerHTML = "O"
-        console.log("o");
-        if (one.innerHTML === "O" && two.innerHTML === "O" && three.innerHTML === "O" ||
-          four.innerHTML === "O" && five.innerHTML === "O" && six.innerHTML === "O" ||
-          seven.innerHTML === "O" && eight.innerHTML === "O" && nine.innerHTML === "O" ||
-          one.innerHTML === "O" && four.innerHTML === "O" && seven.innerHTML === "O" ||
-          two.innerHTML === "O" && five.innerHTML === "O" && eight.innerHTML === "O" ||
-          three.innerHTML === "O" && six.innerHTML === "O" && nine.innerHTML === "O" ||
-          one.innerHTML === "O" && five.innerHTML === "O" && nine.innerHTML === "O" ||
-          three.innerHTML === "O" && five.innerHTML === "O" && seven.innerHTML === "O") {
-          console.log('player 2 wins');
-          alertWinner2();
-
-
-        }
+    cells.forEach((cell) => {
+      if (cell.textContent !== "") {
+        cell.textContent = "";
+        arr = [];
+        drawArr = [];
       }
     });
+  });
 
-    
-  })
+  restartBtn.addEventListener("mouseover", () => {
+    restartBtn.classList.add("focused");
+  });
+  restartBtn.addEventListener("mouseout", () => {
+    restartBtn.classList.remove("focused");
+    restartBtn.classList.remove("clicked");
+  });
 
-}
+  restartBtn.addEventListener("click", () => {
+    if (restartBtn.classList.contains("focused")) {
+      restartBtn.classList.add("clicked");
+    }
+    const cells = document.querySelectorAll(".cell");
+
+    cells.forEach((cell) => {
+      if (cell.textContent !== "") {
+        cell.textContent = "";
+        arr = [];
+        drawArr = [];
+      }
+    });
+  });
+
+  function playGame() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((element) => {
+      element.addEventListener("click", () => {
+        if (!arr.includes(element)) {
+          arr.push(element);
+        }
+
+        if (
+          arr.length == 1 ||
+          arr.length == 3 ||
+          arr.length == 5 ||
+          arr.length == 7 ||
+          arr.length == 9
+        ) {
+          element.textContent = "X";
+          drawArr.push(element.textContent);
+          element.style.color = "rgb(84, 84, 84)";
+          element.style.fontSize = "70px";
+
+          if (
+            (num1.innerHTML === "X" &&
+              num2.innerHTML === "X" &&
+              num3.innerHTML === "X") ||
+            (num4.innerHTML === "X" &&
+              num5.innerHTML === "X" &&
+              num6.innerHTML === "X") ||
+            (num7.innerHTML === "X" &&
+              num8.innerHTML === "X" &&
+              num9.innerHTML === "X") ||
+            (num1.innerHTML === "X" &&
+              num4.innerHTML === "X" &&
+              num7.innerHTML === "X") ||
+            (num2.innerHTML === "X" &&
+              num5.innerHTML === "X" &&
+              num8.innerHTML === "X") ||
+            (num3.innerHTML === "X" &&
+              num6.innerHTML === "X" &&
+              num9.innerHTML === "X") ||
+            (num1.innerHTML === "X" &&
+              num5.innerHTML === "X" &&
+              num9.innerHTML === "X") ||
+            (num3.innerHTML === "X" &&
+              num5.innerHTML === "X" &&
+              num7.innerHTML === "X")
+          ) {
+            alertWinner1();
+          }
+        } else {
+          element.innerHTML = "O";
+          drawArr.push(element.textContent);
+          element.style.color = "#e8e8e8";
+          element.style.fontSize = "70px";
+          if (
+            (num1.innerHTML === "O" &&
+              num2.innerHTML === "O" &&
+              num3.innerHTML === "O") ||
+            (num4.innerHTML === "O" &&
+              num5.innerHTML === "O" &&
+              num6.innerHTML === "O") ||
+            (num7.innerHTML === "O" &&
+              num8.innerHTML === "O" &&
+              num9.innerHTML === "O") ||
+            (num1.innerHTML === "O" &&
+              num4.innerHTML === "O" &&
+              num7.innerHTML === "O") ||
+            (num2.innerHTML === "O" &&
+              num5.innerHTML === "O" &&
+              num8.innerHTML === "O") ||
+            (num3.innerHTML === "O" &&
+              num6.innerHTML === "O" &&
+              num9.innerHTML === "O") ||
+            (num1.innerHTML === "O" &&
+              num5.innerHTML === "O" &&
+              num9.innerHTML === "O") ||
+            (num3.innerHTML === "O" &&
+              num5.innerHTML === "O" &&
+              num7.innerHTML === "O")
+          ) {
+            alertWinner2();
+          }
+        }
+
+        if (drawArr.length == 9) {
+          alertDraw();
+        }
+      });
+    });
+  }
+
+  function alertWinner1() {
+    document.body.removeChild(header);
+    document.body.removeChild(pageCont);
+
+    const winnerMessageX = document.createElement("div");
+    winnerMessageX.classList.add("scale");
+    winnerMessageX.textContent = "WINNER!";
+    winnerMessageX.classList.add("winnerMessageX");
+    const xWinner = document.createElement("img");
+    xWinner.setAttribute("src", "x-symbol.png");
+    xWinner.style.cursor = "pointer";
+    xWinner.classList.add("slideIn");
+
+    document.body.appendChild(xWinner);
+    document.body.appendChild(winnerMessageX);
+
+    xWinner.addEventListener("click", () => {
+      document.body.removeChild(xWinner);
+      document.body.removeChild(winnerMessageX);
+
+      document.body.appendChild(header);
+      document.body.appendChild(pageCont);
+
+      const cells = document.querySelectorAll(".cell");
+
+      cells.forEach((cell) => {
+        if (cell.textContent !== "") {
+          cell.textContent = "";
+          arr = [];
+          drawArr = [];
+        }
+      });
+    });
+    currentXScore += 1;
+
+    xNum.textContent = currentXScore;
+  }
+
+  function alertWinner2() {
+    document.body.removeChild(header);
+    document.body.removeChild(pageCont);
+
+    const winnerMessageO = document.createElement("div");
+    winnerMessageO.classList.add("scale");
+    winnerMessageO.textContent = "WINNER!";
+    winnerMessageO.classList.add("winnerMessageO");
+    const oWinner = document.createElement("img");
+    oWinner.setAttribute("src", "o-symbol.png");
+    oWinner.style.cursor = "pointer";
+    oWinner.classList.add("slideIn");
+
+    document.body.appendChild(oWinner);
+    document.body.appendChild(winnerMessageO);
+
+    oWinner.addEventListener("click", () => {
+      document.body.removeChild(oWinner);
+      document.body.removeChild(winnerMessageO);
+
+      document.body.appendChild(header);
+      document.body.appendChild(pageCont);
+      const cells = document.querySelectorAll(".cell");
+
+      cells.forEach((cell) => {
+        if (cell.textContent !== "") {
+          cell.textContent = "";
+          arr = [];
+          drawArr = [];
+        }
+      });
+    });
+    currentOScore += 1;
+
+    oNum.textContent = currentOScore;
+  }
+
+  function alertDraw() {
+    document.body.removeChild(header);
+    document.body.removeChild(pageCont);
+
+    const drawMessage = document.createElement("div");
+    drawMessage.classList.add("scale");
+    drawMessage.textContent = "DRAW!";
+    drawMessage.classList.add("drawMessage");
+    const drawBoard = document.createElement("div");
+    const drawIconX = document.createElement("img");
+    const drawIconO = document.createElement("img");
+    drawIconO.setAttribute("src", "o-symbol.png");
+    drawIconX.setAttribute("src", "x-symbol.png");
+
+    drawBoard.style.cursor = "pointer";
+    drawBoard.classList.add("slideIn");
+
+    drawBoard.appendChild(drawIconX);
+    drawBoard.appendChild(drawIconO);
+
+    document.body.appendChild(drawBoard);
+    document.body.appendChild(drawMessage);
+
+    drawBoard.addEventListener("click", () => {
+      document.body.removeChild(drawBoard);
+      document.body.removeChild(drawMessage);
+
+      document.body.appendChild(header);
+      document.body.appendChild(pageCont);
+      const cells = document.querySelectorAll(".cell");
+
+      cells.forEach((cell) => {
+        if (cell.textContent !== "") {
+          cell.textContent = "";
+          arr = [];
+          drawArr = [];
+        }
+      });
+    });
+  }
+
+  playGame();
+});
+
+singlePlayer.addEventListener("click", () => {
+  let arr = [];
+  let drawArr = [];
+  let choiceArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  document.body.removeChild(gameBtns);
+  const pageCont = document.createElement("div");
+  pageCont.classList.add("pageContainer");
+  const gameScore = document.createElement("div");
+  gameScore.id = "gameScore";
+  const xScore = document.createElement("div");
+  xScore.classList.add("score");
+  const xName = document.createElement("div");
+  xName.textContent = "X's:";
+  const xNum = document.createElement("div");
+  xNum.id = "xScore";
+  const oScore = document.createElement("div");
+  oScore.classList.add("score");
+  const oName = document.createElement("div");
+  oName.textContent = "O's:";
+  const oNum = document.createElement("div");
+  oNum.id = "oScore";
+
+  xNum.textContent = "0";
+  let currentXScore = Number(xNum.innerText);
+  oNum.textContent = "0";
+  let currentOScore = Number(oNum.innerText);
+
+  const gameCont = document.createElement("div");
+  gameCont.id = "gameContainer";
+
+  const restartBtn = document.createElement("button");
+  const backBtn = document.createElement("button");
+  const multiPlayerGameBtns = document.createElement("div");
+  multiPlayerGameBtns.classList.add("multiPlayerGameBtns");
+
+  xScore.appendChild(xName);
+  xScore.appendChild(xNum);
+  oScore.appendChild(oName);
+  oScore.appendChild(oNum);
+  gameScore.appendChild(xScore);
+  gameScore.appendChild(oScore);
+
+  pageCont.appendChild(gameScore);
+
+  let count = 0;
+
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      count += 1;
+      const gameCells = document.createElement("div");
+      gameCells.classList.add("cell");
+      gameCells.classList.add(count);
+      gameCells.id = "num" + count;
+
+      gameCont.appendChild(gameCells);
+    }
+  }
+  pageCont.appendChild(gameCont);
+
+  restartBtn.id = "myBtn";
+  restartBtn.textContent = "Restart Game";
+  backBtn.id = "backBtn";
+  backBtn.textContent = "Back";
+  multiPlayerGameBtns.appendChild(backBtn);
+  multiPlayerGameBtns.appendChild(restartBtn);
+
+  pageCont.appendChild(multiPlayerGameBtns);
+
+  document.body.appendChild(pageCont);
+
+  backBtn.addEventListener("click", () => {
+    document.body.removeChild(pageCont);
+
+    document.body.appendChild(gameBtns);
+    const cells = document.querySelectorAll(".cell");
+
+    cells.forEach((cell) => {
+      if (cell.textContent !== "") {
+        cell.textContent = "";
+        arr = [];
+        drawArr = [];
+      }
+    });
+  });
+
+  restartBtn.addEventListener("mouseover", () => {
+    restartBtn.classList.add("focused");
+  });
+  restartBtn.addEventListener("mouseout", () => {
+    restartBtn.classList.remove("focused");
+    restartBtn.classList.remove("clicked");
+  });
+
+  restartBtn.addEventListener("click", () => {
+    if (restartBtn.classList.contains("focused")) {
+      restartBtn.classList.add("clicked");
+    }
+    const cells = document.querySelectorAll(".cell");
+
+    cells.forEach((cell) => {
+      if (cell.textContent !== "") {
+        cell.textContent = "";
+        arr = [];
+        drawArr = [];
+      }
+    });
+  });
+
+  function playGame() {
+    const cells = document.querySelectorAll(".cell");
+
+    cells.forEach((element) => {
+      element.addEventListener("click", () => {
+        if (!arr.includes(element)) {
+          arr.push(element);
+        }
+
+        if (
+          arr.length == 1 ||
+          arr.length == 3 ||
+          arr.length == 5 ||
+          arr.length == 7 ||
+          arr.length == 9
+        ) {
+          element.textContent = "X";
+          drawArr.push(element.textContent);
+          element.style.color = "rgb(84, 84, 84)";
+          element.style.fontSize = "70px";
+
+          if (
+            (num1.innerHTML === "X" &&
+              num2.innerHTML === "X" &&
+              num3.innerHTML === "X") ||
+            (num4.innerHTML === "X" &&
+              num5.innerHTML === "X" &&
+              num6.innerHTML === "X") ||
+            (num7.innerHTML === "X" &&
+              num8.innerHTML === "X" &&
+              num9.innerHTML === "X") ||
+            (num1.innerHTML === "X" &&
+              num4.innerHTML === "X" &&
+              num7.innerHTML === "X") ||
+            (num2.innerHTML === "X" &&
+              num5.innerHTML === "X" &&
+              num8.innerHTML === "X") ||
+            (num3.innerHTML === "X" &&
+              num6.innerHTML === "X" &&
+              num9.innerHTML === "X") ||
+            (num1.innerHTML === "X" &&
+              num5.innerHTML === "X" &&
+              num9.innerHTML === "X") ||
+            (num3.innerHTML === "X" &&
+              num5.innerHTML === "X" &&
+              num7.innerHTML === "X")
+          ) {
+            alertWinner1();
+          }
+        }
+
+        if (drawArr.length == 9) {
+          alertDraw();
+        }
+
+        choiceArr.splice(choiceArr.indexOf(Number(element.classList[1])), 1);
+        compMove();
+      });
+    });
+  }
+
+  function compMove() {
+    const cells = document.querySelectorAll(".cell");
+    let compChoice = choiceArr[Math.ceil(Math.random() * choiceArr.length - 1)];
 
 
-function newGame() {
-  document.getElementById("form").style.display = "block";
+
+    cells.forEach((cell) => {
+      if (compChoice == Number(cell.classList[1])) {
+        if (cell.textContent == "") {
+          cell.textContent = "O";
+          arr.push(cell);
+          drawArr.push(cell.textContent);
+          cell.style.color = "rgb(84, 84, 84)";
+          cell.style.fontSize = "70px";
+        }
+      }
+      if (
+        (num1.innerHTML === "O" &&
+          num2.innerHTML === "O" &&
+          num3.innerHTML === "O") ||
+        (num4.innerHTML === "O" &&
+          num5.innerHTML === "O" &&
+          num6.innerHTML === "O") ||
+        (num7.innerHTML === "O" &&
+          num8.innerHTML === "O" &&
+          num9.innerHTML === "O") ||
+        (num1.innerHTML === "O" &&
+          num4.innerHTML === "O" &&
+          num7.innerHTML === "O") ||
+        (num2.innerHTML === "O" &&
+          num5.innerHTML === "O" &&
+          num8.innerHTML === "O") ||
+        (num3.innerHTML === "O" &&
+          num6.innerHTML === "O" &&
+          num9.innerHTML === "O") ||
+        (num1.innerHTML === "O" &&
+          num5.innerHTML === "O" &&
+          num9.innerHTML === "O") ||
+        (num3.innerHTML === "O" &&
+          num5.innerHTML === "O" &&
+          num7.innerHTML === "O")
+      ) {
+        alertWinner2();
+      }
+    });
+    choiceArr.splice(choiceArr.indexOf(compChoice), 1);
 
 
-  document.getElementById("one").innerHTML = "";
-  document.getElementById("two").innerHTML = "";
-  document.getElementById("three").innerHTML = "";
-  document.getElementById("four").innerHTML = "";
-  document.getElementById("five").innerHTML = "";
-  document.getElementById("six").innerHTML = "";
-  document.getElementById("seven").innerHTML = "";
-  document.getElementById("eight").innerHTML = "";
-  document.getElementById("nine").innerHTML = "";
+  }
 
-  player1Name.value = "";
-  player2Name.value = "";
-  arr = []
-  console.log(arr)
-}
+  function alertWinner1() {
+    document.body.removeChild(header);
+    document.body.removeChild(pageCont);
 
+    const winnerMessageX = document.createElement("div");
+    winnerMessageX.classList.add("scale");
+    winnerMessageX.textContent = "WINNER!";
+    winnerMessageX.classList.add("winnerMessageX");
+    const xWinner = document.createElement("img");
+    xWinner.setAttribute("src", "x-symbol.png");
+    xWinner.style.cursor = "pointer";
+    xWinner.classList.add("slideIn");
 
-function alertWinner1() {
-  const gameCont = document.getElementById("container");
-  const gameWinner = document.createTextNode(`${player1Name.value} is the winner`);
-  const btn = document.getElementById("myBtn");
+    document.body.appendChild(xWinner);
+    document.body.appendChild(winnerMessageX);
 
-  gameCont.style.borderRadius = "15px";
-  gameCont.style.border = "1px solid black";
-  gameCont.style.padding = "25px"
-  gameCont.style.backgroundColor = "#eec0c8"
+    xWinner.addEventListener("click", () => {
+      document.body.removeChild(xWinner);
+      document.body.removeChild(winnerMessageX);
 
+      document.body.appendChild(header);
+      document.body.appendChild(pageCont);
 
-  gameCont.appendChild(gameWinner);
+      const cells = document.querySelectorAll(".cell");
 
-  btn.addEventListener("click", () => {
-    gameCont.removeChild(gameWinner);
-    gameCont.style.borderRadius = "";
-    gameCont.style.border = "";
-    gameCont.style.padding = ""
-    gameCont.style.backgroundColor = ""
+      cells.forEach((cell) => {
+        if (cell.textContent !== "") {
+          cell.textContent = "";
+          arr = [];
+          drawArr = [];
+          choiceArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        }
+      });
+    });
+    currentXScore += 1;
 
-  })
+    xNum.textContent = currentXScore;
+  }
 
+  function alertWinner2() {
+    document.body.removeChild(header);
+    document.body.removeChild(pageCont);
 
-};
+    const winnerMessageO = document.createElement("div");
+    winnerMessageO.classList.add("scale");
+    winnerMessageO.textContent = "WINNER!";
+    winnerMessageO.classList.add("winnerMessageO");
+    const oWinner = document.createElement("img");
+    oWinner.setAttribute("src", "o-symbol.png");
+    oWinner.style.cursor = "pointer";
+    oWinner.classList.add("slideIn");
 
-function alertWinner2() {
-  const gameCont = document.getElementById("container");
-  const gameWinner = document.createTextNode(`${player2Name.value} is the winner`);
-  const btn = document.getElementById("myBtn");
+    document.body.appendChild(oWinner);
+    document.body.appendChild(winnerMessageO);
 
-  gameCont.style.borderRadius = "15px";
-  gameCont.style.border = "1px solid black";
-  gameCont.style.padding = "25px"
-  gameCont.style.backgroundColor = "#eec0c8"
+    oWinner.addEventListener("click", () => {
+      document.body.removeChild(oWinner);
+      document.body.removeChild(winnerMessageO);
 
+      document.body.appendChild(header);
+      document.body.appendChild(pageCont);
+      const cells = document.querySelectorAll(".cell");
 
-  gameCont.appendChild(gameWinner);
+      cells.forEach((cell) => {
+        if (cell.textContent !== "") {
+          cell.textContent = "";
+          arr = [];
+          drawArr = [];
+          choiceArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        }
+      });
+    });
+    currentOScore += 1;
 
-  btn.addEventListener("click", () => {
-    gameCont.removeChild(gameWinner);
-    gameCont.style.borderRadius = "";
-    gameCont.style.border = "";
-    gameCont.style.padding = ""
-    gameCont.style.backgroundColor = ""
+    oNum.textContent = currentOScore;
+  }
 
-  })
+  function alertDraw() {
+    document.body.removeChild(header);
+    document.body.removeChild(pageCont);
 
+    const drawMessage = document.createElement("div");
+    drawMessage.classList.add("scale");
+    drawMessage.textContent = "DRAW!";
+    drawMessage.classList.add("drawMessage");
+    const drawBoard = document.createElement("div");
+    const drawIconX = document.createElement("img");
+    const drawIconO = document.createElement("img");
+    drawIconO.setAttribute("src", "o-symbol.png");
+    drawIconX.setAttribute("src", "x-symbol.png");
 
-};
+    drawBoard.style.cursor = "pointer";
+    drawBoard.classList.add("slideIn");
 
-playGame();
+    drawBoard.appendChild(drawIconX);
+    drawBoard.appendChild(drawIconO);
+
+    document.body.appendChild(drawBoard);
+    document.body.appendChild(drawMessage);
+
+    drawBoard.addEventListener("click", () => {
+      document.body.removeChild(drawBoard);
+      document.body.removeChild(drawMessage);
+
+      document.body.appendChild(header);
+      document.body.appendChild(pageCont);
+      const cells = document.querySelectorAll(".cell");
+
+      cells.forEach((cell) => {
+        if (cell.textContent !== "") {
+          cell.textContent = "";
+          arr = [];
+          drawArr = [];
+          choiceArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        }
+      });
+    });
+  }
+
+  playGame();
+});
