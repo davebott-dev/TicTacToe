@@ -2,19 +2,18 @@ html {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding:0;
+  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #14bdac;
 }
 
-body {
+#root {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: inherit;
   width: inherit;
-
 }
 
 #header {
@@ -22,7 +21,6 @@ body {
   justify-content: center;
   align-items: center;
   color: whitesmoke;
-
 }
 
 #gameScore {
@@ -39,44 +37,42 @@ body {
   display: flex;
   flex-direction: row;
   gap: 20px;
-
 }
-   
+
 #gameContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3,1fr);
+  grid-template-rows: repeat(3, 1fr);
   box-sizing: border-box;
   margin-top: 15px;
   width: 50dvw;
   height: 50dvh;
   padding-bottom: 20px;
-  }
+}
 
+#num0,
 #num1,
+#num3,
+#num4 {
+  border-bottom: 7px solid #0da192;
+  border-right: 7px solid #0da192;
+}
+
 #num2,
-#num4,
 #num5 {
   border-bottom: 7px solid #0da192;
-  border-right: 7px solid #0da192;
-  }
+}
 
-#num3,
-#num6 {
-  border-bottom: 7px solid #0da192;
-  }
-
-#num7,
-#num8 {
+#num6,
+#num7 {
   border-right: 7px solid #0da192;
-  }
+}
 
 .cell {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 
 .pageContainer {
   display: flex;
@@ -85,33 +81,33 @@ body {
   align-items: center;
   height: 92dvh;
   gap: 100px;
-  }
+}
 
-  #myBtn,
-  #singlePlayer,
-  #multiPlayer,
-  #backBtn {
-    border: none;
-    height: 50px;
-    width: 150px;
-    border-radius: 25px;
-    background: #0da192;
-    color: whitesmoke;
-    font-size: medium;
-    font-weight: bold;
-    box-shadow: 3px 5px 7px black;
-    transition: all 150ms ease-in-out;
-  }
+#restartBtn,
+#singlePlayer,
+#multiPlayer,
+#backBtn {
+  border: none;
+  height: 50px;
+  width: 150px;
+  border-radius: 25px;
+  background: #0da192;
+  color: whitesmoke;
+  font-size: medium;
+  font-weight: bold;
+  box-shadow: 3px 5px 7px black;
+  transition: all 150ms ease-in-out;
+}
 
-  #myBtn:hover,
-  #singlePlayer:hover,
-  #multiPlayer:hover,
-  #backBtn:hover {
-    scale: 1.1;
-  }
+#myBtn:hover,
+#singlePlayer:hover,
+#multiPlayer:hover,
+#backBtn:hover {
+  scale: 1.1;
+}
 
- .gameBtns,
- .multiPlayerGameBtns {
+.gameBtns,
+.multiPlayerGameBtns {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -122,70 +118,62 @@ body {
   padding-top: 150px;
 }
 
+.clicked {
+  animation: btnClickDown 200ms alternate;
+}
 
-  .clicked {
-    animation: btnClickDown 200ms alternate;
+@keyframes btnClickDown {
+  from {
+    box-shadow: 3px 5px 7px black;
   }
-
-
-  @keyframes btnClickDown {
-    from {
-      box-shadow: 3px 5px 7px black;
-      
-    }
-
-    to {
-      box-shadow: none;
-    }
-
-    
+  to {
+    box-shadow: none;
   }
+}
 
 .winnerMessageX,
 .drawMessage {
-font-size: xx-large;
-font-weight: bolder;
-color:rgb(84, 84, 84);
-margin-top: 100px;
+  font-size: xx-large;
+  font-weight: bolder;
+  color: rgb(84, 84, 84);
+  margin-top: 100px;
 }
 
 .winnerMessageO {
-font-size: xx-large;
-font-weight: bolder;
-color:#e8e8e8;
-margin-top: 100px;
+  font-size: xx-large;
+  font-weight: bolder;
+  color: #e8e8e8;
+  margin-top: 100px;
 }
 
 .slideIn {
-animation: slideIn 200ms forwards;
+  animation: slideIn 200ms forwards;
 }
 
 .scale {
-animation: scale 500ms forwards;
+  animation: scale 500ms forwards;
 }
-
 
 @keyframes slideIn {
-from {
-  transform: translateX(-300px);
-}
+  from {
+    transform: translateX(-300px);
+  }
 
-to {
-  transform: translateX(0px);
-}
+  to {
+    transform: translateX(0px);
+  }
 }
 
 @keyframes scale {
-from {
-  scale: 0;
-}
+  from {
+    scale: 0;
+  }
 
-50% {
-  scale: 1.1;
-}
+  50% {
+    scale: 1.1;
+  }
 
-to {
-  scale: 1;
-}
-
+  to {
+    scale: 1;
+  }
 }
