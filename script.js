@@ -1,3 +1,4 @@
+//original script
 const multiPlayer = document.getElementById("multiPlayer");
 const singlePlayer = document.getElementById("singlePlayer");
 
