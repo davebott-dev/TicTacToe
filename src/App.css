@@ -122,6 +122,10 @@ html {
   animation: btnClickDown 200ms alternate;
 }
 
+button{
+  cursor: pointer;
+}
+
 @keyframes btnClickDown {
   from {
     box-shadow: 3px 5px 7px black;
